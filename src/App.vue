@@ -3,7 +3,11 @@
 
   <main>
     <form @submit="(e) => onSubmit(e)">
-      <input v-model="todoText" placeholder="Add new todo" />
+      <Input
+        @foo="(data) => (todoText = data)"
+        :value="todoText"
+        placeholder="Add new todo"
+      />
     </form>
     <TodoList :todos="todos" />
   </main>
@@ -13,6 +17,7 @@
 import { ref } from "vue"
 import Navbar from "./components/Navbar.vue"
 import TodoList from "./components/TodoList.vue"
+import Input from "./components/Input.vue"
 
 const todoText = ref("")
 const todos = ref([])
@@ -22,13 +27,13 @@ const addTodo = () => {
   todoText.value = ""
 }
 
-const onSubmit = (e, b) => {
+const onSubmit = (e) => {
   e.preventDefault()
   addTodo()
 }
 
 export default {
-  components: { Navbar, TodoList },
+  components: { Navbar, TodoList, Input },
   setup() {
     return { todoText, todos, onSubmit }
   }
