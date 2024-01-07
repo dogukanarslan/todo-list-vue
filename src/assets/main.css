@@ -3,12 +3,14 @@ body {
   font-family: "Quicksand", sans-serif;
   margin: 0;
   background: var(--secondary);
+  font-size: 14px;
 }
 
 * {
   margin: 0;
   padding: 0;
   font-size: inherit;
+  box-sizing: border-box;
 }
 
 ul {
@@ -16,6 +18,7 @@ ul {
 }
 
 :root {
+  --white: #fff;
   --primary: #3c486b;
   --secondary: #f0f0f0;
 }

@@ -1,15 +1,22 @@
 <template>
   <Navbar />
 
-  <main>
-    <form @submit="(e) => onSubmit(e)">
-      <Input
-        @changeTodo="(data) => (todoText = data)"
-        :value="todoText"
-        placeholder="Add new todo"
-      />
+  <main class="main">
+    <form class="todo-list__form" @submit="onSubmit">
+      <h2>ADD ITEM</h2>
+      <div class="todo-list__add">
+        <Input
+          @changeTodo="(data) => (todoText = data)"
+          :value="todoText"
+          placeholder="Add new todo"
+        />
+        <Button label="Add" />
+      </div>
     </form>
-    <TodoList :todos="todos" />
+    <div v-if="todos.length > 0">
+      <h2>TODO</h2>
+      <TodoList :todos="todos" />
+    </div>
   </main>
 </template>
 
@@ -18,6 +25,7 @@ import { onMounted, ref } from "vue"
 import Navbar from "./components/Navbar.vue"
 import TodoList from "./components/TodoList.vue"
 import Input from "./components/Input.vue"
+import Button from "./components/Button.vue"
 
 const todoText = ref("")
 const todos = ref([])
@@ -35,7 +43,7 @@ const onSubmit = (e) => {
 }
 
 export default {
-  components: { Navbar, TodoList, Input },
+  components: { Navbar, TodoList, Input, Button },
   setup() {
     onMounted(() => {
       const existingTodos = JSON.parse(localStorage.getItem("todos"))
@@ -48,3 +56,24 @@ export default {
   }
 }
 </script>
+
+<style>
+.main {
+  width: 400px;
+  margin: 10px auto;
+  background-color: var(--white);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.main h2 {
+  border-bottom: 2px solid black;
+  text-transform: uppercase;
+}
+
+.todo-list__add {
+  padding: 10px 0;
+  display: flex;
+  column-gap: 10px;
+}
+</style>
