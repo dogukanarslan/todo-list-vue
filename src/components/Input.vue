@@ -1,5 +1,4 @@
 <template>
-  <p>Value is {{ value }}</p> 
   <input
     class="input"
     :placeholder="placeholder"
@@ -11,8 +10,8 @@
 <script>
 export default {
   props: ["value", "placeholder"],
-  emits: ["changeTodo"],
-} 
+  emits: ["changeTodo"]
+}
 </script>
 
 <style>
