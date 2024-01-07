@@ -4,15 +4,15 @@
     class="input"
     :placeholder="placeholder"
     :value="value"
-    @input="$emit('foo', $event.target.value)"
+    @input="$emit('changeTodo', $event.target.value)"
   />
 </template>
 
 <script>
 export default {
   props: ["value", "placeholder"],
-  emits: ["foo"],
-}
+  emits: ["changeTodo"],
+} 
 </script>
 
 <style>

@@ -4,7 +4,7 @@
   <main>
     <form @submit="(e) => onSubmit(e)">
       <Input
-        @foo="(data) => (todoText = data)"
+        @changeTodo="(data) => (todoText = data)"
         :value="todoText"
         placeholder="Add new todo"
       />
@@ -25,6 +25,8 @@ const todos = ref([])
 const addTodo = () => {
   todos.value.push({ label: todoText.value, completed: false })
   todoText.value = ""
+
+  localStorage.setItem("todos", JSON.stringify(todos.value))
 }
 
 const onSubmit = (e) => {
