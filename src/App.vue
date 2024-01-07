@@ -15,7 +15,7 @@
     </form>
     <div v-if="todos.length > 0">
       <h2>TODO</h2>
-      <TodoList :todos="todos" />
+      <TodoList :todos="todos" @deleteTodo="deleteTodo" />
     </div>
   </main>
 </template>
@@ -37,6 +37,10 @@ const addTodo = () => {
   localStorage.setItem("todos", JSON.stringify(todos.value))
 }
 
+const deleteTodo = (label) => {
+  todos.value = todos.value.filter((todo) => todo.label !== label)
+}
+
 const onSubmit = (e) => {
   e.preventDefault()
   addTodo()
@@ -52,7 +56,7 @@ export default {
       }
     })
 
-    return { todoText, todos, onSubmit }
+    return { todoText, todos, onSubmit, deleteTodo }
   }
 }
 </script>
