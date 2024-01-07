@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
 import Navbar from "./components/Navbar.vue"
 import TodoList from "./components/TodoList.vue"
 import Input from "./components/Input.vue"
@@ -37,6 +37,11 @@ const onSubmit = (e) => {
 export default {
   components: { Navbar, TodoList, Input },
   setup() {
+    onMounted(() => {
+      const existingTodos = JSON.parse(localStorage.getItem("todos"))
+      todos.value = existingTodos
+    })
+
     return { todoText, todos, onSubmit }
   }
 }
