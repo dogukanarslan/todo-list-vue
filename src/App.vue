@@ -39,7 +39,9 @@ export default {
   setup() {
     onMounted(() => {
       const existingTodos = JSON.parse(localStorage.getItem("todos"))
-      todos.value = existingTodos
+      if (existingTodos) {
+        todos.value = existingTodos
+      }
     })
 
     return { todoText, todos, onSubmit }
