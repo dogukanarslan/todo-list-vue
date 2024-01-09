@@ -38,7 +38,9 @@ const addTodo = () => {
 }
 
 const deleteTodo = (label) => {
-  todos.value = todos.value.filter((todo) => todo.label !== label)
+  const newTodos = todos.value.filter((todo) => todo.label !== label)
+  todos.value = newTodos
+  localStorage.setItem("todos", JSON.stringify(newTodos))
 }
 
 const onSubmit = (e) => {
