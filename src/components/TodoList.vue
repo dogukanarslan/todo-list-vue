@@ -5,6 +5,7 @@
       :todo="todo"
       @delete-todo="(id) => $emit('deleteTodo', id)"
       @edit-todo="(newTodo) => $emit('editTodo', newTodo)"
+      @toggle-complete="(newTodo) => $emit('toggleComplete', newTodo)"
     />
   </ul>
 </template>
@@ -13,7 +14,7 @@
 import Todo from "./Todo.vue"
 
 export default {
-  emits: ["deleteTodo", "editTodo"],
+  emits: ["deleteTodo", "editTodo", "toggleComplete"],
   components: { Todo },
   props: ["todos"]
 }

@@ -1,6 +1,5 @@
 <template>
-  <!-- TODO: Fix this state mutation -->
-  <li class="todo-list__todo" @click="todo.completed = !todo.completed">
+  <li class="todo-list__todo" @click="$emit('toggleComplete', todo)">
     <Input
       @changeTodo="(data) => (editText = data)"
       v-if="isEditMode"
@@ -16,7 +15,7 @@
       @click="$emit('deleteTodo', todo.id)"
       label="Delete"
     />
-    <Button v-if="isEditMode" @click="edit-todo" label="Save" />
+    <Button v-if="isEditMode" @click="editTodo" label="Save" />
     <Button
       @click="isEditMode = !isEditMode"
       :label="isEditMode ? 'Cancel' : 'Edit'"
@@ -30,7 +29,7 @@ import Button from "./Button.vue"
 import Input from "./Input.vue"
 
 export default {
-  emits: ["deleteTodo", "editTodo"],
+  emits: ["deleteTodo", "editTodo", "toggleComplete"],
   components: { Button, Input },
   props: ["todo"],
   setup(props, { emit }) {
@@ -39,7 +38,7 @@ export default {
 
     const editTodo = () => {
       isEditMode.value = false
-      emit("edit-todo", {...props.todo, label: editText.value})
+      emit("editTodo", { ...props.todo, label: editText.value })
     }
 
     return { editText, isEditMode, editTodo }
