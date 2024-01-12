@@ -15,7 +15,11 @@
     </form>
     <div v-if="todos.length > 0">
       <h2>TODO</h2>
-      <TodoList :todos="todos" @deleteTodo="deleteTodo" @editTodo="editTodo" />
+      <TodoList
+        :todos="todos"
+        @delete-todo="deleteTodo"
+        @edit-todo="editTodo"
+      />
     </div>
   </main>
 </template>
@@ -30,38 +34,6 @@ import Button from "./components/Button.vue"
 const todoText = ref("")
 const todos = ref([])
 
-const addTodo = () => {
-  todos.value.push({
-    id: Math.random(),
-    label: todoText.value,
-    completed: false
-  })
-  todoText.value = ""
-
-  localStorage.setItem("todos", JSON.stringify(todos.value))
-}
-
-const deleteTodo = (id) => {
-  const newTodos = todos.value.filter((todo) => todo.id !== id)
-  todos.value = newTodos
-  localStorage.setItem("todos", JSON.stringify(newTodos))
-}
-
-const editTodo = (newTodo) => {
-  const newTodos = todos.value.map((currentTodo) =>
-    newTodo.id === currentTodo.id
-      ? { ...currentTodo, label: newTodo.label }
-      : currentTodo
-  )
-  todos.value = newTodos
-  localStorage.setItem("todos", JSON.stringify(newTodos))
-}
-
-const onSubmit = (e) => {
-  e.preventDefault()
-  addTodo()
-}
-
 export default {
   components: { Navbar, TodoList, Input, Button },
   setup() {
@@ -71,6 +43,38 @@ export default {
         todos.value = existingTodos
       }
     })
+
+    const addTodo = () => {
+      todos.value.push({
+        id: Math.random(),
+        label: todoText.value,
+        completed: false
+      })
+      todoText.value = ""
+
+      localStorage.setItem("todos", JSON.stringify(todos.value))
+    }
+
+    const deleteTodo = (id) => {
+      const newTodos = todos.value.filter((todo) => todo.id !== id)
+      todos.value = newTodos
+      localStorage.setItem("todos", JSON.stringify(newTodos))
+    }
+
+    const editTodo = (newTodo) => {
+      const newTodos = todos.value.map((currentTodo) =>
+        newTodo.id === currentTodo.id
+          ? { ...currentTodo, label: newTodo.label }
+          : currentTodo
+      )
+      todos.value = newTodos
+      localStorage.setItem("todos", JSON.stringify(newTodos))
+    }
+
+    const onSubmit = (e) => {
+      e.preventDefault()
+      addTodo()
+    }
 
     return { todoText, todos, onSubmit, deleteTodo, editTodo }
   }
