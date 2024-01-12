@@ -19,6 +19,7 @@
         :todos="todos"
         @delete-todo="deleteTodo"
         @edit-todo="editTodo"
+        @toggle-complete="toggleComplete"
       />
     </div>
   </main>
@@ -71,12 +72,22 @@ export default {
       localStorage.setItem("todos", JSON.stringify(newTodos))
     }
 
+    const toggleComplete = (newTodo) => {
+      const newTodos = todos.value.map((currentTodo) =>
+        newTodo.id === currentTodo.id
+          ? { ...currentTodo, completed: !newTodo.completed }
+          : currentTodo
+      )
+      todos.value = newTodos
+      localStorage.setItem("todos", JSON.stringify(newTodos))
+    }
+
     const onSubmit = (e) => {
       e.preventDefault()
       addTodo()
     }
 
-    return { todoText, todos, onSubmit, deleteTodo, editTodo }
+    return { todoText, todos, onSubmit, deleteTodo, editTodo, toggleComplete }
   }
 }
 </script>
