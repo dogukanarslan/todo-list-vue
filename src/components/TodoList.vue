@@ -1,35 +1,19 @@
 <template>
   <ul class="todo-list">
-    <li
-      class="todo-list__todo"
+    <Todo
       v-for="todo in todos"
-      @click="todo.completed = !todo.completed"
-    >
-      <p>
-        {{ todo.label }}
-      </p>
-      <Button color="danger" @click="$emit('deleteTodo', todo.label)" label="Delete" />
-    </li>
+      :todo="todo"
+      @deleteTodo="(data) => $emit('deleteTodo', data)"
+    />
   </ul>
 </template>
 
 <script>
-import Button from "./Button.vue"
+import Todo from "./Todo.vue"
 
 export default {
-  props: ["todos"],
-  components: { Button }
+  emits: ["delete-todo"],
+  components: { Todo },
+  props: ["todos"]
 }
 </script>
-
-<style>
-.todo-list__todo {
-  display: flex;
-  align-items: center;
-  margin: 10px 0;
-}
-
-.todo-list__todo p {
-  width: 100%;
-}
-</style>
