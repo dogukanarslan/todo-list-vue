@@ -16,7 +16,7 @@
       @click="$emit('deleteTodo', todo.id)"
       label="Delete"
     />
-    <Button v-if="isEditMode" @click="editTodo" label="Save" />
+    <Button v-if="isEditMode" @click="edit-todo" label="Save" />
     <Button
       @click="isEditMode = !isEditMode"
       :label="isEditMode ? 'Cancel' : 'Edit'"
@@ -30,7 +30,7 @@ import Button from "./Button.vue"
 import Input from "./Input.vue"
 
 export default {
-  emits: ["delete-todo", "edit-todo"],
+  emits: ["deleteTodo", "editTodo"],
   components: { Button, Input },
   props: ["todo"],
   setup(props, { emit }) {
