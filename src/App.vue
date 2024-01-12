@@ -15,7 +15,7 @@
     </form>
     <div v-if="todos.length > 0">
       <h2>TODO</h2>
-      <TodoList :todos="todos" @deleteTodo="deleteTodo" />
+      <TodoList :todos="todos" @deleteTodo="deleteTodo" @editTodo="editTodo" />
     </div>
   </main>
 </template>
@@ -31,14 +31,28 @@ const todoText = ref("")
 const todos = ref([])
 
 const addTodo = () => {
-  todos.value.push({ label: todoText.value, completed: false })
+  todos.value.push({
+    id: Math.random(),
+    label: todoText.value,
+    completed: false
+  })
   todoText.value = ""
 
   localStorage.setItem("todos", JSON.stringify(todos.value))
 }
 
-const deleteTodo = (label) => {
-  const newTodos = todos.value.filter((todo) => todo.label !== label)
+const deleteTodo = (id) => {
+  const newTodos = todos.value.filter((todo) => todo.id !== id)
+  todos.value = newTodos
+  localStorage.setItem("todos", JSON.stringify(newTodos))
+}
+
+const editTodo = (newTodo) => {
+  const newTodos = todos.value.map((currentTodo) =>
+    newTodo.id === currentTodo.id
+      ? { ...currentTodo, label: newTodo.label }
+      : currentTodo
+  )
   todos.value = newTodos
   localStorage.setItem("todos", JSON.stringify(newTodos))
 }
@@ -58,7 +72,7 @@ export default {
       }
     })
 
-    return { todoText, todos, onSubmit, deleteTodo }
+    return { todoText, todos, onSubmit, deleteTodo, editTodo }
   }
 }
 </script>

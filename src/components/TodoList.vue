@@ -3,7 +3,8 @@
     <Todo
       v-for="todo in todos"
       :todo="todo"
-      @deleteTodo="(data) => $emit('deleteTodo', data)"
+      @deleteTodo="(id) => $emit('delete-todo', id)"
+      @editTodo="(newTodo) => $emit('edit-todo', newTodo)"
     />
   </ul>
 </template>
@@ -12,7 +13,7 @@
 import Todo from "./Todo.vue"
 
 export default {
-  emits: ["delete-todo"],
+  emits: ["delete-todo", "edit-todo"],
   components: { Todo },
   props: ["todos"]
 }
