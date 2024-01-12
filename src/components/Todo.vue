@@ -13,7 +13,7 @@
     <Button
       class="m-2"
       color="danger"
-      @click="$emit('deleteTodo', todo.label)"
+      @click="$emit('deleteTodo', todo.id)"
       label="Delete"
     />
     <Button v-if="isEditMode" @click="editTodo" label="Save" />
@@ -25,21 +25,21 @@
 </template>
 
 <script>
-import {  ref } from "vue"
+import { ref } from "vue"
 import Button from "./Button.vue"
 import Input from "./Input.vue"
 
 export default {
-  emits: ['delete-todo'],
+  emits: ["delete-todo", "edit-todo"],
   components: { Button, Input },
   props: ["todo"],
-  setup(props) {
+  setup(props, { emit }) {
     const isEditMode = ref(false)
     const editText = ref("")
 
     const editTodo = () => {
-      props.todo.label = editText.value
       isEditMode.value = false
+      emit("edit-todo", {...props.todo, label: editText.value})
     }
 
     return { editText, isEditMode, editTodo }
