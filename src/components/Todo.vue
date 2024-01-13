@@ -1,7 +1,7 @@
 <template>
   <li class="todo-list__todo" @click="$emit('toggleComplete', todo)">
     <Input
-      @changeTodo="(data) => (editText = data)"
+      @change-todo="(data) => (editText = data)"
       v-if="isEditMode"
       :value="todo.label"
       placeholder="Add new todo"
