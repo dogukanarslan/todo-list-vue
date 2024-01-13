@@ -52,6 +52,7 @@ export default {
   align-items: center;
   min-height: 40px;
   margin-top: 10px;
+  border-bottom: 1px solid #eee;
 }
 
 .todo-list__todo button {
