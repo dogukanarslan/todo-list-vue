@@ -13,10 +13,19 @@
         <Button label="Add" />
       </div>
     </form>
-    <div v-if="todos.length > 0">
-      <h2>TODO</h2>
+    <div v-if="todos.filter((todo) => todo.completed).length > 0">
+      <h2>COMPLETED TODOS</h2>
       <TodoList
-        :todos="todos"
+        :todos="todos.filter((todo) => todo.completed)"
+        @delete-todo="deleteTodo"
+        @edit-todo="editTodo"
+        @toggle-complete="toggleComplete"
+      />
+    </div>
+    <div v-if="todos.filter((todo) => !todo.completed).length > 0">
+      <h2>UNCOMPLETED TODOS</h2>
+      <TodoList
+        :todos="todos.filter((todo) => !todo.completed)"
         @delete-todo="deleteTodo"
         @edit-todo="editTodo"
         @toggle-complete="toggleComplete"
