@@ -1,11 +1,15 @@
 <template>
-  <li class="todo-list__todo" @click="$emit('toggleComplete', todo)">
-    <Input
-      @change-todo="(data) => (editText = data)"
-      v-if="isEditMode"
-      :value="todo.label"
-      placeholder="Add new todo"
-    />
+  <li class="todo-list__todo">
+    <div>
+      <input
+        type="checkbox"
+        :checked="todo.completed"
+        @change="$emit('toggleComplete', todo)"
+      />
+    </div>
+    <div class="todo-list__edit-input" v-if="isEditMode">
+      <Input @change="(val) => (editText = val)" :value="todo.label" />
+    </div>
     <p v-else>
       {{ todo.label }}
     </p>
@@ -53,6 +57,14 @@ export default {
   min-height: 40px;
   margin-top: 10px;
   border-bottom: 1px solid #eee;
+}
+
+.todo-list__todo * + * {
+  margin-left: 10px;
+}
+
+.todo-list__edit-input {
+  width: 100%;
 }
 
 .todo-list__todo button {

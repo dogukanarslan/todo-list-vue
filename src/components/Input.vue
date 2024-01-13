@@ -3,14 +3,14 @@
     class="input"
     :placeholder="placeholder"
     :value="value"
-    @input="$emit('changeTodo', $event.target.value)"
+    @change="$emit('change', $event.target.value)"
   />
 </template>
 
 <script>
 export default {
   props: ["value", "placeholder"],
-  emits: ["changeTodo"]
+  emits: ["change"]
 }
 </script>
 
