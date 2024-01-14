@@ -1,6 +1,7 @@
 <template>
   <ul class="todo-list">
     <Todo
+      :key="todo.id"
       v-for="todo in todos"
       :todo="todo"
       @delete-todo="(id) => $emit('deleteTodo', id)"
