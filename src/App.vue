@@ -6,7 +6,7 @@
       <h2>ADD ITEM</h2>
       <div class="todo-list__add">
         <Input
-          @change-todo="(data) => (todoText = data)"
+          @change="(data) => (todoText = data)"
           :value="todoText"
           placeholder="Add new todo"
         />
